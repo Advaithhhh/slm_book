@@ -1,0 +1,28 @@
+Overview
+
+This repository implements a Search-based Language Model (SLM) using a combination of text preprocessing, retrieval, and generation techniques. The pipeline answers user queries by processing a given book or document, retrieving the most relevant context, and generating an answer using a pre-trained T5 model.
+
+Modules
+	1.	Preprocessing
+The preprocess.py file handles the preprocessing of the input book or document. It divides the document into smaller chunks, tokenizes the text, and creates a BM25 index to aid in efficient retrieval.
+	2.	Retriever
+The retriever.py file implements the retrieval mechanism, where relevant chunks are retrieved based on the user’s question using the BM25 index created during preprocessing. This ensures the most relevant sections of the text are passed to the model for answer generation.
+	3.	Generator
+The generator.py file loads a pre-trained T5 model using the Hugging Face library. This model generates answers based on the question and context provided from the retrieval step.
+	4.	Pipeline
+The pipeline.py file brings everything together. It defines the end-to-end QA pipeline, which calls the preprocessing, retrieval, and generation functions in sequence. Given a question and a book path, it provides an answer.
+
+File Structure
+	•	preprocess.py
+	•	Functions:
+	•	preprocess_book(book_path): Preprocesses the input book, splitting it into chunks and creating a BM25 index.
+	•	retriever.py
+	•	Functions:
+	•	retrieve_relevant_chunks(question, bm25_index, chunks): Retrieves relevant chunks of text using the BM25 index based on the input question.
+	•	generator.py
+	•	Functions:
+	•	load_t5_model(): Loads a pre-trained T5 model.
+	•	generate_answer(question, context, model, tokenizer): Generates an answer using the T5 model based on the provided context.
+	•	pipeline.py
+	•	Functions:
+	•	qa_pipeline(question, book_path): The main function that integrates all steps (preprocessing, retrieval, and generation) into an end-to-end pipeline.
